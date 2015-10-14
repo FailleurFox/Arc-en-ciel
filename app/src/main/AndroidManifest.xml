@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DrawingSelectorActivity"
+            android:label="@string/title_activity_drawing_selector" >
+        </activity>
+        <activity
+            android:name=".CategorySelectorActivity"
+            android:label="@string/title_activity_category_selector" >
+        </activity>
     </application>
 
 </manifest>

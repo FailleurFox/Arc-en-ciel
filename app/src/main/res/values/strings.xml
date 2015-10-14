@@ -2,5 +2,9 @@
 <resources>
 
     <string name="app_name">Arc-en-ciel</string>
+    <string name="title_activity_drawing_selector">Selection du dessin</string>
+    <string name="title_activity_category_selector">CategorySelectorActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
