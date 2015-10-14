@@ -1,5 +1,6 @@
 package fr.polytech.si5.arc_en_ciel;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
-public class CategorySelectorActivity extends ActionBarActivity {
+public class CategorySelectorActivity extends Activity {
     private Mode mode;
 
     @Override

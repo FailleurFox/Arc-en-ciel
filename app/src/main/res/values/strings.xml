@@ -3,8 +3,20 @@
 
     <string name="app_name">Arc-en-ciel</string>
     <string name="title_activity_drawing_selector">Selection du dessin</string>
-    <string name="title_activity_category_selector">CategorySelectorActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="title_activity_category_selector">Selection du theme</string>
 
+    <string name="erase">Erase</string>
+    <string name="save">Save</string>
+    <string name="paint">Paint</string>
+
+    <color name="myPurple">#cc22c3</color>
+    <color name="myIndigo">#8d33cc</color>
+    <color name="myBlue">#288fcc</color>
+    <color name="myGreen">#35cc42</color>
+    <color name="myYellow">#fcff21</color>
+    <color name="myOrange">#ffb23a</color>
+    <color name="myRed">#ff1a1e</color>
+    <color name="myWhite">#ffffff</color>
+    <string name="title_activity_drawing">Dessin</string>
 </resources>
+

@@ -33,6 +33,7 @@ public class LevelSelectorActivity extends Activity {
     }
 
     public void selectEmptyPage(View v){
-
+        Intent intent = new Intent(this, DrawingActivity.class);
+        startActivity(intent);
     }
 }
