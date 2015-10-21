@@ -2,10 +2,14 @@ package fr.polytech.si5.arc_en_ciel;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import java.util.UUID;
 
 public class DrawingActivity extends Activity {
     private DrawingView drawingView;
@@ -57,21 +61,48 @@ public class DrawingActivity extends Activity {
             drawingView.setColor(color);
 
             // clean the previous selection
-            if(currPaint.getId() != (R.id.erase_btn)) {
+            //if(currPaint.getId() != (R.id.erase_btn)) {
                 currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-            }
-            else { // special case : eraser
-                currPaint.setBackgroundColor(getResources().getColor(R.color.myWhite));
-            }
+            //}
+            //else { // special case : eraser
+            //    currPaint.setBackgroundColor(getResources().getColor(R.color.myGrey));
+           // }
 
             // highlight the new selection
-            currPaint = (ImageButton)imgView;
-            if(imgView.getId() != (R.id.erase_btn)) {
+                currPaint = (ImageButton)imgView;
+          //  if(imgView.getId() != (R.id.erase_btn)) {
                 currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-            }
-            else {   // special case : eraser
-                imgView.setBackgroundColor(getResources().getColor(R.color.myBlack));
-            }
+           // }
+           // else {   // special case : eraser
+               // imgView.setBackgroundColor(getResources().getColor(R.color.myWhite));
+            //}
         }
+    }
+
+    public void save(View view) {
+        currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
+
+        // active cache
+        drawingView.setDrawingCacheEnabled(true);
+
+        // save
+        String imgSaved = MediaStore.Images.Media.insertImage(
+                getContentResolver(), drawingView.getDrawingCache(),
+                UUID.randomUUID().toString()+".png", "drawing");
+
+        // verify
+        if(imgSaved!=null){
+            Toast savedToast = Toast.makeText(getApplicationContext(),
+                    "Image sauvegardée dans la galerie !", Toast.LENGTH_LONG);
+            savedToast.show();
+        }
+        else{
+            Toast unsavedToast = Toast.makeText(getApplicationContext(),
+                    "Oups! L'image n'a pas été sauvegardée...", Toast.LENGTH_LONG);
+            unsavedToast.show();
+        }
+
+        // desactive cache
+        drawingView.destroyDrawingCache();
     }
 }

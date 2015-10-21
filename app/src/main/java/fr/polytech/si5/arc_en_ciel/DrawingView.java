@@ -21,7 +21,7 @@ public class DrawingView extends View {
     //canvas bitmap
     private Bitmap canvasBitmap;
 
-    private int sizeEraseCursor = 100;
+    private int sizeEraseCursor = 130;
     private int sizeColorCursor = 30;
 
 
@@ -57,7 +57,7 @@ public class DrawingView extends View {
 
         canvas.drawPath(drawPath, drawPaint);
     }
-    
+
     public void setColor(String newColor){
 
         if(newColor.equals("#ffffffff"))
@@ -69,6 +69,7 @@ public class DrawingView extends View {
         drawPaint.setColor(paintColor);
 
     }
+
 
     public Path getDrawPath() {
         return drawPath;

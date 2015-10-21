@@ -112,10 +112,10 @@ tools:context=".MainActivity" >
         android:layout_width="@dimen/large_brush"
         android:layout_height="@dimen/large_brush"
         android:layout_margin="2dp"
-        android:contentDescription="@string/erase"
         android:background="@color/myWhite"
+        android:contentDescription="@string/erase"
         android:onClick="paintClicked"
-        android:src="@drawable/eraser"
+        android:src="@drawable/paint"
         android:tag="@color/myWhite" />
 
     <ImageButton
@@ -123,7 +123,7 @@ tools:context=".MainActivity" >
         android:layout_gravity="center_vertical"
         android:layout_width="@dimen/large_brush"
         android:layout_height="@dimen/large_brush"
-        android:background="@color/myWhite"
+        android:onClick="save"
         android:contentDescription="@string/save"
         android:src="@drawable/save" />
 </LinearLayout>

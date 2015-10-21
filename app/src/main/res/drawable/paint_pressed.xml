@@ -3,7 +3,7 @@
         <shape android:shape="rectangle" >
             <stroke
                 android:width="4dp"
-                android:color="#FF333333" />
+                android:color="#FF999999" />
 
             <solid android:color="#00000000" />
 
@@ -14,15 +14,15 @@
                 android:top="0dp" />
         </shape>
     </item>
-    <item>
+    <!--<item>
         <shape xmlns:android="http://schemas.android.com/apk/res/android" >
             <stroke
                 android:width="4dp"
-                android:color="#FF333333" />
+                android:color="#ffffff" />
 
             <solid android:color="#00000000" />
 
             <corners android:radius="10dp" />
         </shape>
-    </item>
+    </item>-->
 </layer-list>
