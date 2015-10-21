@@ -1,8 +1,13 @@
 package fr.polytech.si5.arc_en_ciel;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -104,5 +109,21 @@ public class DrawingActivity extends Activity {
 
         // desactive cache
         drawingView.destroyDrawingCache();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setTitle("Retour")
+            .setMessage("Etes-vous sûr de vouloir quitter le dessin ?")
+            .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            })
+            .setNegativeButton("Annuler", null)
+            .show();
     }
 }

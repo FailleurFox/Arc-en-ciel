@@ -15,7 +15,7 @@ public class DrawingView extends View {
     //drawing and canvas paint
     private Paint drawPaint, canvasPaint;
     //initial color
-    private int paintColor = 0xFF660000;
+    private int paintColor;
     //canvas
     private Canvas drawCanvas;
     //canvas bitmap
@@ -34,7 +34,7 @@ public class DrawingView extends View {
         //get drawing area setup for interaction
         drawPath = new Path();
         drawPaint = new Paint();
-        drawPaint.setColor(paintColor);
+        //drawPaint.setColor(paintColor);
         drawPaint.setAntiAlias(true);
         drawPaint.setStrokeWidth(sizeColorCursor);
         drawPaint.setStyle(Paint.Style.STROKE);
