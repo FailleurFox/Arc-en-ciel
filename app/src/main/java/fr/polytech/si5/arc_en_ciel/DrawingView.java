@@ -21,6 +21,9 @@ public class DrawingView extends View {
     //canvas bitmap
     private Bitmap canvasBitmap;
 
+    private int sizeEraseCursor = 100;
+    private int sizeColorCursor = 30;
+
 
     public DrawingView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -33,7 +36,7 @@ public class DrawingView extends View {
         drawPaint = new Paint();
         drawPaint.setColor(paintColor);
         drawPaint.setAntiAlias(true);
-        drawPaint.setStrokeWidth(20);
+        drawPaint.setStrokeWidth(sizeColorCursor);
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -51,13 +54,20 @@ public class DrawingView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
+
         canvas.drawPath(drawPath, drawPaint);
     }
-
-
+    
     public void setColor(String newColor){
+
+        if(newColor.equals("#ffffffff"))
+            drawPaint.setStrokeWidth(sizeEraseCursor);
+        else
+            drawPaint.setStrokeWidth(sizeColorCursor);
+
         paintColor = Color.parseColor(newColor);
         drawPaint.setColor(paintColor);
+
     }
 
     public Path getDrawPath() {

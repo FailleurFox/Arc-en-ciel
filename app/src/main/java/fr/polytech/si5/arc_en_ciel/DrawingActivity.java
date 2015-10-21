@@ -50,14 +50,28 @@ public class DrawingActivity extends Activity {
     }
 
     public void paintClicked(View view){
-        //use chosen color
-        if(view!=currPaint){
+        // use chosen color
+        if(view != currPaint){
             ImageButton imgView = (ImageButton)view;
             String color = view.getTag().toString();
             drawingView.setColor(color);
+
+            // clean the previous selection
+            if(currPaint.getId() != (R.id.erase_btn)) {
+                currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
+            }
+            else { // special case : eraser
+                currPaint.setBackgroundColor(getResources().getColor(R.color.myWhite));
+            }
+
+            // highlight the new selection
+            currPaint = (ImageButton)imgView;
+            if(imgView.getId() != (R.id.erase_btn)) {
+                currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
+            }
+            else {   // special case : eraser
+                imgView.setBackgroundColor(getResources().getColor(R.color.myBlack));
+            }
         }
-
     }
-
-
 }
