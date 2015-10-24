@@ -9,6 +9,7 @@
     <string name="save">Save</string>
     <string name="paint">Paint</string>
 
+    <color name="myBlack">#000000</color>
     <color name="myPurple">#cc22c3</color>
     <color name="myIndigo">#8d33cc</color>
     <color name="myBlue">#288fcc</color>
@@ -17,6 +18,7 @@
     <color name="myOrange">#ffb23a</color>
     <color name="myRed">#ff1a1e</color>
     <color name="myWhite">#ffffff</color>
+    <color name="myGrey">#c6c6c6</color>
     <string name="title_activity_drawing">Dessin</string>
 </resources>
 
