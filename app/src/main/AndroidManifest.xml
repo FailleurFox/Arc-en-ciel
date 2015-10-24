@@ -22,6 +22,11 @@
             android:screenOrientation="landscape">
         </activity>
         <activity
+            android:name=".FillColorActivity"
+            android:label="@string/title_activity_drawing"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity
             android:name=".DrawingSelectorActivity"
             android:label="@string/title_activity_drawing_selector" >
         </activity>

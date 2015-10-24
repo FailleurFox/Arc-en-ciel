@@ -8,8 +8,8 @@
         android:id="@+id/drawing_thumbnail"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:scaleType="fitXY"
         android:backgroundTint="@color/white"
+        android:scaleType="fitCenter"
         android:elevation="4dp"/>
     <TextView
         android:id="@+id/drawing_name"
