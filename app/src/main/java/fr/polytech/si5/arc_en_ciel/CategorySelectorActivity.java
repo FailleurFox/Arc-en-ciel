@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
@@ -19,6 +20,31 @@ public class CategorySelectorActivity extends Activity {
         setContentView(R.layout.activity_category_selector);
 
         mode = (Mode)getIntent().getSerializableExtra("mode");
+
+        ImageButton imageAnimals = (ImageButton) findViewById(R.id.image_animals);
+        ImageButton imageGarden = (ImageButton) findViewById(R.id.image_garden);
+        ImageButton imageSeasons = (ImageButton) findViewById(R.id.image_seasons);
+
+        imageAnimals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectAnimals(v);
+            }
+        });
+
+        imageGarden.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectGarden(v);
+            }
+        });
+
+        imageSeasons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectSeasons(v);
+            }
+        });
 
         ((TextView)findViewById(R.id.header_text)).setText("Choisis un thème !");
     }

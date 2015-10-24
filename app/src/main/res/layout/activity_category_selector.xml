@@ -20,14 +20,15 @@
                 android:orientation="vertical"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_margin="30dp"
-                android:onClick="selectAnimals">
+                android:layout_margin="30dp">
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/image_animals"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:background="@color/blue"
-                    android:padding="1dp"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/tortue"
+                    android:scaleType="fitXY"
                     android:elevation="4dp"/>
 
                 <TextView
@@ -42,15 +43,14 @@
                 android:orientation="vertical"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_margin="30dp"
-                android:onClick="selectGarden">
+                android:layout_margin="30dp">
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/image_garden"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:background="@color/blue"
-                    android:padding="1dp"
-                    android:elevation="4dp" />
+                    android:backgroundTint="@color/white"
+                    android:elevation="4dp"/>
 
                 <TextView
                     android:text="Jardin"
@@ -64,15 +64,14 @@
                 android:orientation="vertical"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_margin="30dp"
-                android:onClick="selectSeasons">
+                android:layout_margin="30dp">
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/image_seasons"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:background="@color/blue"
-                    android:padding="1dp"
-                    android:elevation="4dp" />
+                    android:backgroundTint="@color/white"
+                    android:elevation="4dp"/>
 
                 <TextView
                     android:text="Saisons"

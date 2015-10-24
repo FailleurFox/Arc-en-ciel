@@ -10,10 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class DrawingSelectorActivity extends Activity {
+    public static Map<Category, List<Integer>> imageIdsByCategory;
     private Mode mode;
     private Category category;
 
@@ -22,18 +25,22 @@ public class DrawingSelectorActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing_selector);
 
+        List<Integer> animals = new ArrayList<>();
+        animals.add(R.drawable.tortue);
+        animals.add(R.drawable.poisson);
+        animals.add(R.drawable.girafe);
+        animals.add(R.drawable.tortue);
+        animals.add(R.drawable.tortue);
+        animals.add(R.drawable.tortue);
+
+        imageIdsByCategory = new HashMap<>();
+        imageIdsByCategory.put(Category.ANIMALS, animals);
+
         mode = (Mode)getIntent().getSerializableExtra("mode");
         category = (Category)getIntent().getSerializableExtra("category");
 
-        List<String> array = new ArrayList<String>();
-        switch(category){
-            case ANIMALS:
-                break;
-            case SEASONS :
-                break;
-            case GARDEN :
-                break;
-        }
+
+        List<Integer> array = imageIdsByCategory.get(category);
 
         ((TextView)findViewById(R.id.header_text)).setText("Choisis un dessin !");
 
