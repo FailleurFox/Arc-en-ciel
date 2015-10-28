@@ -28,6 +28,7 @@ public class FillColorActivity extends Activity {
     private ImageButton currPaint;
     private Bitmap bmp;
     private int color;
+    private boolean isColoring = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +56,14 @@ public class FillColorActivity extends Activity {
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && !isColoring) {
+                    isColoring = true;
+
                     float touchX = motionEvent.getX();
                     float touchY = motionEvent.getY();
 
                     Point p = new Point((int)touchX, (int)touchY);
-                    new FloodFill(imageView, bmp, p, color).execute();
+                    new FloodFill(FillColorActivity.this, bmp, p, color).execute();
                 }
                 return true;
             }
@@ -134,5 +137,17 @@ public class FillColorActivity extends Activity {
                 })
                 .setNegativeButton("Annuler", null)
                 .show();
+    }
+
+    public FillColorView getImageView(){
+        return imageView;
+    }
+
+    public boolean isColoring(){
+        return isColoring;
+    }
+
+    public void setIsColoring(boolean b){
+        isColoring = b;
     }
 }

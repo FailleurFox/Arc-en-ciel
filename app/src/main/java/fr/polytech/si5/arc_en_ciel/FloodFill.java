@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
@@ -14,13 +15,14 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class FloodFill extends AsyncTask<Void, Void, Bitmap> {
-    private FillColorView imageView;
+    private FillColorActivity fillColorActivity;
     private Bitmap bmp;
     private Point pt;
     private int targetColor, replacementColor;
+    private boolean colorBackground = false;
 
-    public FloodFill(FillColorView imageView, Bitmap bmp, Point pt, int replacementColor) {
-        this.imageView = imageView;
+    public FloodFill(FillColorActivity activity, Bitmap bmp, Point pt, int replacementColor) {
+        fillColorActivity = activity;
         this.bmp = bmp;
         this.targetColor = bmp.getPixel(pt.x, pt.y);
         this.replacementColor = replacementColor;
@@ -28,46 +30,27 @@ public class FloodFill extends AsyncTask<Void, Void, Bitmap> {
     }
 
     protected Bitmap doInBackground(Void... params) {
-        /*// TEST
-        for(int i=pt.x-2; i<pt.x+3; i++){
-            for(int j=pt.y-2; j<pt.y+3; j++){
-                bmp.setPixel(i, j, replacementColor);
-            }
+        if(targetColor < Color.parseColor("#111111")){
+            return bmp;
         }
-        //*/
-        Queue<Point> q = new LinkedList<Point>();
-        q.add(pt);
-        while (q.size() > 0) {
-            Point n = q.poll();
-            if (bmp.getPixel(n.x, n.y) != targetColor)
-                continue;
-
-            Point w = n, e = new Point(n.x + 1, n.y);
-            while ((w.x > 0) && (bmp.getPixel(w.x, w.y) == targetColor)) {
-                bmp.setPixel(w.x, w.y, replacementColor);
-                if ((w.y > 0) && (bmp.getPixel(w.x, w.y - 1) == targetColor))
-                    q.add(new Point(w.x, w.y - 1));
-                if ((w.y < bmp.getHeight() - 1)
-                        && (bmp.getPixel(w.x, w.y + 1) == targetColor))
-                    q.add(new Point(w.x, w.y + 1));
-                w.x--;
-            }
-            while ((e.x < bmp.getWidth() - 1)
-                    && (bmp.getPixel(e.x, e.y) == targetColor)) {
-                bmp.setPixel(e.x, e.y, replacementColor);
-
-                if ((e.y > 0) && (bmp.getPixel(e.x, e.y - 1) == targetColor))
-                    q.add(new Point(e.x, e.y - 1));
-                if ((e.y < bmp.getHeight() - 1)
-                        && (bmp.getPixel(e.x, e.y + 1) == targetColor))
-                    q.add(new Point(e.x, e.y + 1));
-                e.x++;
-            }
+        if(targetColor == 0){
+            colorBackground = true;
+            return bmp;
         }
+
+        int[] pixels = new int[bmp.getHeight()*bmp.getWidth()];
+        bmp.getPixels(pixels, 0, bmp.getWidth(), 0, 0,
+                bmp.getWidth(), bmp.getHeight());
+        QueueLinearFloodFiller.floodFill(pixels, bmp.getWidth(), bmp.getHeight(), pt, targetColor, replacementColor, 80);
+        bmp.setPixels(pixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
         return bmp;
     }
 
     protected void onPostExecute(Bitmap result) {
-        imageView.setBitmap(bmp);
+        if(colorBackground){
+            fillColorActivity.getImageView().setBackground(new ColorDrawable(replacementColor));
+        }
+        fillColorActivity.getImageView().setBitmap(bmp);
+        fillColorActivity.setIsColoring(false);
     }
 }
