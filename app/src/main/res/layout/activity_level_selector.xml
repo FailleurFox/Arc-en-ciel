@@ -8,34 +8,38 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="500dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
         <Button
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="@dimen/marginBetweenBtn"
+            android:layout_marginTop="@dimen/marginTopBtn"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="@dimen/buttonMenuPrincipal"
             android:text="Page blanche"
             android:onClick="selectEmptyPage"
             android:textColor="@color/white"
+            android:textSize="@dimen/textSize"
             android:backgroundTint="@color/blue"/>
 
         <Button
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="@dimen/marginBetweenBtn"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="@dimen/buttonMenuPrincipal"
             android:text="Coloriage facile"
             android:onClick="selectEasyColoring"
             android:textColor="@color/white"
+            android:textSize="@dimen/textSize"
             android:backgroundTint="@color/blue" />
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="@dimen/buttonMenuPrincipal"
             android:text="Coloriage difficile"
             android:onClick="selectHardColoring"
             android:textColor="@color/white"
+            android:textSize="@dimen/textSize"
             android:backgroundTint="@color/blue" />
 
     </LinearLayout>

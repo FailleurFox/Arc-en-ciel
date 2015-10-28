@@ -1,0 +1,21 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="small_brush">10dp</dimen>
+    <integer name="small_size">10</integer>
+    <dimen name="medium_brush">30dp</dimen>
+    <integer name="medium_size">30</integer>
+    <dimen name="large_brush">50dp</dimen>
+    <integer name="large_size">50</integer>
+
+
+    <!-- menu catégorie theme -->
+    <dimen name="widthCategory">100dp</dimen>
+    <integer name="widthCategory">100</integer>
+
+    <dimen name="heightCategory">100dp</dimen>
+    <integer name="heightCategory">100</integer>
+
+</resources>

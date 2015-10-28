@@ -20,6 +20,7 @@
     <color name="myWhite">#ffffff</color>
     <color name="myGrey">#c6c6c6</color>
     <string name="title_activity_drawing">Dessin</string>
-
+    
+    <string name="orientationTheme">vertical</string>
 </resources>
 
