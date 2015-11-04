@@ -30,7 +30,7 @@ public class FloodFill extends AsyncTask<Void, Void, Bitmap> {
     }
 
     protected Bitmap doInBackground(Void... params) {
-        if(targetColor < Color.parseColor("#111111")){
+        if(targetColor < Color.parseColor("#222222")){
             return bmp;
         }
         if(targetColor == 0){

@@ -24,11 +24,14 @@ import java.util.Queue;
 import java.util.UUID;
 
 public class FillColorActivity extends Activity {
+    private FillColorView colorsView;
     private FillColorView imageView;
     private ImageButton currPaint;
+    private Bitmap bmpColors;
     private Bitmap bmp;
     private int color;
     private boolean isColoring = false;
+    private Mode mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +39,33 @@ public class FillColorActivity extends Activity {
         setContentView(R.layout.activity_fill_color);
 
         imageView = (FillColorView) findViewById(R.id.drawing);
+        colorsView = (FillColorView) findViewById(R.id.colors);
 
-        Mode mode = (Mode) getIntent().getSerializableExtra("mode");
+        mode = (Mode) getIntent().getSerializableExtra("mode");
         Integer imageId = getIntent().getIntExtra("imageId", 0);
 
         Point screenDimensions = new Point();
         getWindowManager().getDefaultDisplay().getSize(screenDimensions);
+
+        bmpColors = null;
+        if(mode.equals(Mode.HARD)) {
+            switch (imageId) {
+                case R.drawable.poisson:
+                    bmpColors = BitmapFactory.decodeResource(getResources(), R.drawable.poisson_colors);
+                    break;
+                case R.drawable.tortue:
+                    bmpColors = BitmapFactory.decodeResource(getResources(), R.drawable.tortue_colors);
+                    break;
+            }
+            double ratio = ((double) screenDimensions.x) / bmpColors.getWidth();
+            bmpColors = Bitmap.createScaledBitmap(bmpColors, screenDimensions.x, (int) (bmpColors.getHeight() * ratio), true);
+
+            colorsView.setBitmap(bmpColors);
+        }
+
         bmp = BitmapFactory.decodeResource(getResources(), imageId);
+        double ratio = ((double) screenDimensions.x) / bmp.getWidth();
         bmp = bmp.copy(bmp.getConfig(), true);
-        double ratio = ((double)screenDimensions.x)/bmp.getWidth();
         bmp = Bitmap.createScaledBitmap(bmp, screenDimensions.x, (int)(bmp.getHeight()*ratio), true);
 
         imageView.setBitmap(bmp);
@@ -52,17 +73,22 @@ public class FillColorActivity extends Activity {
         LinearLayout paintLayout = (LinearLayout) findViewById(R.id.linLay);
         currPaint = (ImageButton) paintLayout.getChildAt(0);
         currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
+        color = Color.parseColor(currPaint.getTag().toString());
 
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && !isColoring) {
-                    isColoring = true;
-
                     float touchX = motionEvent.getX();
                     float touchY = motionEvent.getY();
 
+                    if(mode.equals(Mode.HARD) && bmpColors.getPixel((int)touchX, (int)touchY) != color){
+                        return true;
+                    }
+                    isColoring = true;
+
                     Point p = new Point((int)touchX, (int)touchY);
+
                     new FloodFill(FillColorActivity.this, bmp, p, color).execute();
                 }
                 return true;
