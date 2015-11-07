@@ -18,6 +18,10 @@ public class DrawingSelectorActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing_selector);
 
+        ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
+        backButton.setOnClickListener(new OnBackButtonClickListener(this));
+        backButton.setVisibility(View.VISIBLE);
+
         ImageButton homeButton = (ImageButton) findViewById(R.id.home_button);
         homeButton.setOnClickListener(new OnHomeButtonClickListener(this));
         homeButton.setVisibility(View.VISIBLE);
@@ -38,6 +42,10 @@ public class DrawingSelectorActivity extends Activity {
                 drawings.add(new Drawing("L'arrosoire", R.drawable.arrosoire, R.drawable.arrosoire_colors, R.drawable.arrosoire_thumbnail, 11));
                 break;
             case SEASONS:
+                drawings.add(new Drawing("Le printemps", R.drawable.printemps, R.drawable.printemps_colors, R.drawable.printemps_thumbnail, 13));
+                drawings.add(new Drawing("L'été", R.drawable.ete, R.drawable.ete_colors, R.drawable.ete_thumbnail, 8));
+                drawings.add(new Drawing("L'automne", R.drawable.automne, R.drawable.automne_colors, R.drawable.automne_thumbnail, 7));
+                drawings.add(new Drawing("L'hiver", R.drawable.hiver, R.drawable.hiver_colors, R.drawable.hiver_thumbnail, 8));
                 break;
         }
 

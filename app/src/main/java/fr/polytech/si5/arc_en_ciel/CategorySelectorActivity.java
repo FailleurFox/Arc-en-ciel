@@ -19,6 +19,10 @@ public class CategorySelectorActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_selector);
 
+        ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
+        backButton.setOnClickListener(new OnBackButtonClickListener(this));
+        backButton.setVisibility(View.VISIBLE);
+
         ImageButton homeButton = (ImageButton) findViewById(R.id.home_button);
         homeButton.setOnClickListener(new OnHomeButtonClickListener(this));
         homeButton.setVisibility(View.VISIBLE);
