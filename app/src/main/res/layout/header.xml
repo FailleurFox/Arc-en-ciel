@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tool_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/blue"
     android:elevation="2dp">
 
-    <RelativeLayout
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="84dp"
-            android:src="@drawable/rainbow"
-            android:layout_centerInParent="true"/>
+        android:layout_height="84dp"
+        android:src="@drawable/rainbow"
+        android:layout_centerInParent="true" />
 
     <TextView
         android:paddingTop="20dp"
@@ -30,7 +26,16 @@
         android:shadowColor="#000000"
         android:shadowDx="1"
         android:shadowDy="1"
-        android:shadowRadius="1"/>
-    </RelativeLayout>
+        android:shadowRadius="1" />
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/home_button"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:scaleType="fitXY"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/home_icon"
+        android:visibility="gone"/>
+</RelativeLayout>

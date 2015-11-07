@@ -2,7 +2,9 @@ package fr.polytech.si5.arc_en_ciel;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,6 +17,10 @@ public class DrawingSelectorActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing_selector);
+
+        ImageButton homeButton = (ImageButton) findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new OnHomeButtonClickListener(this));
+        homeButton.setVisibility(View.VISIBLE);
 
         Mode mode = (Mode)getIntent().getSerializableExtra("mode");
         Category category = (Category)getIntent().getSerializableExtra("category");

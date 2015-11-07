@@ -19,6 +19,10 @@ public class CategorySelectorActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_selector);
 
+        ImageButton homeButton = (ImageButton) findViewById(R.id.home_button);
+        homeButton.setOnClickListener(new OnHomeButtonClickListener(this));
+        homeButton.setVisibility(View.VISIBLE);
+
         mode = (Mode)getIntent().getSerializableExtra("mode");
 
         ImageButton imageAnimals = (ImageButton) findViewById(R.id.image_animals);

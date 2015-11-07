@@ -3,6 +3,7 @@ package fr.polytech.si5.arc_en_ciel;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -156,7 +157,9 @@ public class FillColorActivity extends Activity {
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                        Intent homeIntent = new Intent(FillColorActivity.this, LevelSelectorActivity.class);
+                        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        FillColorActivity.this.startActivity(homeIntent);
                     }
                 })
                 .setNegativeButton("Annuler", null)

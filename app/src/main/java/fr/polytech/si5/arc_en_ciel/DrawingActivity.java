@@ -120,7 +120,9 @@ public class DrawingActivity extends Activity {
             .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    finish();
+                    Intent homeIntent = new Intent(DrawingActivity.this, LevelSelectorActivity.class);
+                    homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    DrawingActivity.this.startActivity(homeIntent);
                 }
             })
             .setNegativeButton("Annuler", null)
