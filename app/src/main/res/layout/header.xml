@@ -6,6 +6,11 @@
     android:layout_height="wrap_content"
     android:background="@color/blue"
     android:elevation="2dp">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:src="@drawable/rainbow"
+        android:layout_centerInParent="true" />
 
     <ImageButton
         android:id="@+id/back_button"
@@ -19,11 +24,17 @@
         android:backgroundTint="@color/blue"
         android:visibility="gone"/>
 
-    <ImageView
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/home_button"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="84dp"
         android:layout_height="84dp"
-        android:src="@drawable/rainbow"
-        android:layout_centerInParent="true" />
+        android:scaleType="fitXY"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/home_icon"
+        android:backgroundTint="@color/blue"
+        android:visibility="gone"/>
 
     <TextView
         android:paddingTop="20dp"
@@ -39,16 +50,4 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="1" />
-
-    <ImageButton
-        android:id="@+id/home_button"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:scaleType="fitXY"
-        android:layout_marginRight="5dp"
-        android:src="@drawable/home_icon"
-        android:backgroundTint="@color/blue"
-        android:visibility="gone"/>
 </RelativeLayout>
