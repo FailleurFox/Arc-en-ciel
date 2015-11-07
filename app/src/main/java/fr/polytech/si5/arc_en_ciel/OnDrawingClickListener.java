@@ -8,12 +8,12 @@ import android.view.View;
  * Created by Hugo on 24/10/2015.
  */
 public class OnDrawingClickListener implements View.OnClickListener{
-    private Integer imageId;
+    private Drawing drawing;
     private Mode mode;
     private Context context;
 
-    public OnDrawingClickListener(Context context, int imageId, Mode mode){
-        this.imageId = imageId;
+    public OnDrawingClickListener(Context context, Drawing drawing, Mode mode){
+        this.drawing = drawing;
         this.context = context;
         this.mode = mode;
     }
@@ -22,8 +22,12 @@ public class OnDrawingClickListener implements View.OnClickListener{
     public void onClick(View v) {
 
         Intent intent = new Intent(context, FillColorActivity.class);
-        intent.putExtra("imageId", imageId);
+        intent.putExtra("imageId", drawing.getDrawableId());
+        intent.putExtra("nbCircles", drawing.getNbCircles());
         intent.putExtra("mode", mode);
+        if(mode.equals(Mode.HARD)){
+            intent.putExtra("colorsId", drawing.getColorsDrawableId());
+        }
         context.startActivity(intent);
     }
 }

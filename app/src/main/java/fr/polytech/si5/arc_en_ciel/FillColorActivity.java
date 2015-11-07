@@ -7,24 +7,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.UUID;
 
 public class FillColorActivity extends Activity {
-    private FillColorView colorsView;
     private FillColorView imageView;
     private ImageButton currPaint;
     private Bitmap bmpColors;
@@ -32,6 +24,7 @@ public class FillColorActivity extends Activity {
     private int color;
     private boolean isColoring = false;
     private Mode mode;
+    private int nbCircles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +32,7 @@ public class FillColorActivity extends Activity {
         setContentView(R.layout.activity_fill_color);
 
         imageView = (FillColorView) findViewById(R.id.drawing);
-        colorsView = (FillColorView) findViewById(R.id.colors);
+        FillColorView colorsView = (FillColorView) findViewById(R.id.colors);
 
         mode = (Mode) getIntent().getSerializableExtra("mode");
         Integer imageId = getIntent().getIntExtra("imageId", 0);
@@ -47,16 +40,10 @@ public class FillColorActivity extends Activity {
         Point screenDimensions = new Point();
         getWindowManager().getDefaultDisplay().getSize(screenDimensions);
 
-        bmpColors = null;
-        if(mode.equals(Mode.HARD)) {
-            switch (imageId) {
-                case R.drawable.poisson:
-                    bmpColors = BitmapFactory.decodeResource(getResources(), R.drawable.poisson_colors);
-                    break;
-                case R.drawable.tortue:
-                    bmpColors = BitmapFactory.decodeResource(getResources(), R.drawable.tortue_colors);
-                    break;
-            }
+        if (mode.equals(Mode.HARD)) {
+            Integer colorsId = getIntent().getIntExtra("colorsId", 0);
+            nbCircles = getIntent().getIntExtra("nbCircles", 0);
+            bmpColors = BitmapFactory.decodeResource(getResources(), colorsId);
             double ratio = ((double) screenDimensions.x) / bmpColors.getWidth();
             bmpColors = Bitmap.createScaledBitmap(bmpColors, screenDimensions.x, (int) (bmpColors.getHeight() * ratio), true);
 
@@ -66,7 +53,7 @@ public class FillColorActivity extends Activity {
         bmp = BitmapFactory.decodeResource(getResources(), imageId);
         double ratio = ((double) screenDimensions.x) / bmp.getWidth();
         bmp = bmp.copy(bmp.getConfig(), true);
-        bmp = Bitmap.createScaledBitmap(bmp, screenDimensions.x, (int)(bmp.getHeight()*ratio), true);
+        bmp = Bitmap.createScaledBitmap(bmp, screenDimensions.x, (int) (bmp.getHeight() * ratio), true);
 
         imageView.setBitmap(bmp);
 
@@ -82,14 +69,21 @@ public class FillColorActivity extends Activity {
                     float touchX = motionEvent.getX();
                     float touchY = motionEvent.getY();
 
-                    if(mode.equals(Mode.HARD) && bmpColors.getPixel((int)touchX, (int)touchY) != color){
+                    if (mode.equals(Mode.HARD) && bmpColors.getPixel((int) touchX, (int) touchY) != color || bmp.getPixel((int) touchX, (int) touchY) == color) {
                         return true;
                     }
                     isColoring = true;
 
-                    Point p = new Point((int)touchX, (int)touchY);
+                    Point p = new Point((int) touchX, (int) touchY);
 
                     new FloodFill(FillColorActivity.this, bmp, p, color).execute();
+
+                    if (mode.equals(Mode.HARD)){
+                        nbCircles--;
+                        if(nbCircles == 0){
+                            winHardMode();
+                        }
+                    }
                 }
                 return true;
             }
@@ -165,15 +159,19 @@ public class FillColorActivity extends Activity {
                 .show();
     }
 
-    public FillColorView getImageView(){
+    private void winHardMode(){
+        new AlertDialog.Builder(this).setMessage("Bravo !").show();
+    }
+
+    public FillColorView getImageView() {
         return imageView;
     }
 
-    public boolean isColoring(){
+    public boolean isColoring() {
         return isColoring;
     }
 
-    public void setIsColoring(boolean b){
+    public void setIsColoring(boolean b) {
         isColoring = b;
     }
 }

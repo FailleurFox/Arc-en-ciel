@@ -59,6 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/heightCategory"
                     android:backgroundTint="@color/white"
+                    android:src="@drawable/fleurs_thumbnail"
                     android:scaleType="fitCenter"
                     android:elevation="4dp"/>
 

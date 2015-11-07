@@ -1,54 +1,44 @@
 package fr.polytech.si5.arc_en_ciel;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class DrawingSelectorActivity extends Activity {
-    public static Map<Category, List<Integer>> imageIdsByCategory;
-    private Mode mode;
-    private Category category;
-    private FillDrawingsGridAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing_selector);
 
-        List<Integer> animals = new ArrayList<>();
-        animals.add(R.drawable.tortue);
-        animals.add(R.drawable.poisson);
-        animals.add(R.drawable.girafe);
+        Mode mode = (Mode)getIntent().getSerializableExtra("mode");
+        Category category = (Category)getIntent().getSerializableExtra("category");
 
-        imageIdsByCategory = new HashMap<>();
-        imageIdsByCategory.put(Category.ANIMALS, animals);
-
-        mode = (Mode)getIntent().getSerializableExtra("mode");
-        category = (Category)getIntent().getSerializableExtra("category");
-
-
-        List<Integer> array = imageIdsByCategory.get(category);
+        List<Drawing> drawings = new ArrayList<>();
+        switch(category){
+            case ANIMALS:
+                drawings.add(new Drawing("La tortue", R.drawable.tortue, R.drawable.tortue_colors, R.drawable.tortue_thumbnail, 11));
+                drawings.add(new Drawing("Le poisson", R.drawable.poisson, R.drawable.poisson_colors, R.drawable.poisson_thumbnail, 16));
+                drawings.add(new Drawing("La girafe", R.drawable.girafe, R.drawable.girafe_colors, R.drawable.girafe_thumbnail, 8));
+                break;
+            case GARDEN:
+                drawings.add(new Drawing("Les fleurs", R.drawable.fleurs, R.drawable.fleurs_colors, R.drawable.fleurs_thumbnail, 22));
+                drawings.add(new Drawing("Le potager", R.drawable.potager, R.drawable.potager_colors, R.drawable.potager_thumbnail, 7));
+                drawings.add(new Drawing("L'arrosoire", R.drawable.arrosoire, R.drawable.arrosoire_colors, R.drawable.arrosoire_thumbnail, 11));
+                break;
+            case SEASONS:
+                break;
+        }
 
         ((TextView)findViewById(R.id.header_text)).setText("Choisis un dessin !");
 
         GridView gridView = (GridView) findViewById(R.id.grid_view);
-        adapter = new FillDrawingsGridAdapter(this, array, mode);
+        FillDrawingsGridAdapter adapter = new FillDrawingsGridAdapter(this, drawings, mode);
         gridView.setAdapter(adapter);
-
-        ImageView imageview;
     }
 }
