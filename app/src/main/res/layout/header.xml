@@ -16,6 +16,7 @@
         android:scaleType="fitXY"
         android:layout_marginLeft="5dp"
         android:src="@drawable/back_icon"
+        android:backgroundTint="@color/blue"
         android:visibility="gone"/>
 
     <ImageView
@@ -48,5 +49,6 @@
         android:scaleType="fitXY"
         android:layout_marginRight="5dp"
         android:src="@drawable/home_icon"
+        android:backgroundTint="@color/blue"
         android:visibility="gone"/>
 </RelativeLayout>
