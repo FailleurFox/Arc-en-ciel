@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MotionEvent;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import java.util.UUID;
 
 public class FillColorActivity extends Activity {
@@ -69,7 +71,9 @@ public class FillColorActivity extends Activity {
                     float touchX = motionEvent.getX();
                     float touchY = motionEvent.getY();
 
-                    if (mode.equals(Mode.HARD) && bmpColors.getPixel((int) touchX, (int) touchY) != color || bmp.getPixel((int) touchX, (int) touchY) == color) {
+                    if (mode.equals(Mode.HARD) && bmpColors.getPixel((int) touchX, (int) touchY) != color
+                            || bmp.getPixel((int) touchX, (int) touchY) == color
+                            || (bmp.getPixel((int) touchX, (int) touchY) == 0 && ((ColorDrawable)imageView.getBackground()).getColor() == color)) {
                         return true;
                     }
                     isColoring = true;
@@ -78,9 +82,9 @@ public class FillColorActivity extends Activity {
 
                     new FloodFill(FillColorActivity.this, bmp, p, color).execute();
 
-                    if (mode.equals(Mode.HARD)){
+                    if (mode.equals(Mode.HARD)) {
                         nbCircles--;
-                        if(nbCircles == 0){
+                        if (nbCircles == 0) {
                             winHardMode();
                         }
                     }
@@ -159,7 +163,7 @@ public class FillColorActivity extends Activity {
                 .show();
     }
 
-    private void winHardMode(){
+    private void winHardMode() {
         new AlertDialog.Builder(this).setMessage("Bravo !").show();
     }
 
