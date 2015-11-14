@@ -32,7 +32,8 @@ public class FillDrawingsGridAdapter extends ArrayAdapter<Drawing> {
             ((ImageView)convertView.findViewById(R.id.drawing_thumbnail)).setImageResource(drawing.getThumbnailId());
             ((TextView)convertView.findViewById(R.id.drawing_name)).setText(drawing.getName());
         }
-        convertView.findViewById(R.id.drawing_thumbnail).setOnClickListener(new OnDrawingClickListener(getContext(), drawing, mode));
+        convertView.findViewById(R.id.drawing_thumbnail).setOnClickListener(
+                new OnDrawingClickListener(getContext(), drawing, mode));
 
         return convertView;
     }

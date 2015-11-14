@@ -29,10 +29,20 @@ public class FillColorActivity extends Activity {
     private Mode mode;
     private int nbCircles;
 
+    private SpeechSynthesis speech;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fill_color);
+
+        // thread pour synthèse vocale
+        speech = new SpeechSynthesis() {
+            protected void onPostExecute(Boolean result) {
+            }
+        };
+        speech.context = getApplicationContext();
+        speech.execute();
 
         imageView = (FillColorView) findViewById(R.id.drawing);
         FillColorView colorsView = (FillColorView) findViewById(R.id.colors);
@@ -79,6 +89,9 @@ public class FillColorActivity extends Activity {
                     }
                     isColoring = true;
 
+                    // mode hard : dit la couleur si c'est la bonne
+                    speech.speek(speech.colorToSpeech(currPaint.getTag().toString()));
+
                     Point p = new Point((int) touchX, (int) touchY);
 
                     new FloodFill(FillColorActivity.this, bmp, p, color).execute();
@@ -103,22 +116,16 @@ public class FillColorActivity extends Activity {
             String color = view.getTag().toString();
             this.color = Color.parseColor(color);
 
-            // clean the previous selection
-            //if(currPaint.getId() != (R.id.erase_btn)) {
+            // la synthèse vocale dit les couleurs ! =D
+            if(mode.equals(Mode.EASY)) {
+                speech.speek(speech.colorToSpeech(view.getTag().toString()));
+            }
+
             currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-            //}
-            //else { // special case : eraser
-            //    currPaint.setBackgroundColor(getResources().getColor(R.color.myGrey));
-            // }
 
             // highlight the new selection
             currPaint = (ImageButton) imgView;
-            //  if(imgView.getId() != (R.id.erase_btn)) {
             currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-            // }
-            // else {   // special case : eraser
-            // imgView.setBackgroundColor(getResources().getColor(R.color.myWhite));
-            //}
         }
     }
 
@@ -167,7 +174,10 @@ public class FillColorActivity extends Activity {
     }
 
     private void winHardMode() {
+
+        speech.speek("Bravo !");
         new AlertDialog.Builder(this).setMessage("Bravo !").show();
+
     }
 
     public FillColorView getImageView() {

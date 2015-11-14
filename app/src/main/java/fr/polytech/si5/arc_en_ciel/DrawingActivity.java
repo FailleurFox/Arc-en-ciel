@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -19,11 +20,22 @@ import java.util.UUID;
 public class DrawingActivity extends Activity {
     private DrawingView drawingView;
     private ImageButton currPaint;
+    private SpeechSynthesis speech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
+
+        // thread pour synthèse vocale
+        speech = new SpeechSynthesis() {
+            protected void onPostExecute(Boolean result) {
+            }
+        };
+        speech.context = getApplicationContext();
+        speech.execute();
+
+
 
         LinearLayout paintLayout = (LinearLayout)findViewById(R.id.linLay);
         currPaint = (ImageButton)paintLayout.getChildAt(0);
@@ -63,24 +75,17 @@ public class DrawingActivity extends Activity {
         if(view != currPaint){
             ImageButton imgView = (ImageButton)view;
             String color = view.getTag().toString();
+
+            // la synthèse vocale dit les couleurs ! =D
+            speech.speek(speech.colorToSpeech(view.getTag().toString()));
+
             drawingView.setColor(color);
 
-            // clean the previous selection
-            //if(currPaint.getId() != (R.id.erase_btn)) {
-                currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-            //}
-            //else { // special case : eraser
-            //    currPaint.setBackgroundColor(getResources().getColor(R.color.myGrey));
-           // }
+            currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
 
             // highlight the new selection
-                currPaint = (ImageButton)imgView;
-          //  if(imgView.getId() != (R.id.erase_btn)) {
-                currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-           // }
-           // else {   // special case : eraser
-               // imgView.setBackgroundColor(getResources().getColor(R.color.myWhite));
-            //}
+            currPaint = (ImageButton)imgView;
+            currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
         }
     }
 

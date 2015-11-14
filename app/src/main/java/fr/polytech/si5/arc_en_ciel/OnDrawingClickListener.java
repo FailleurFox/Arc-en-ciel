@@ -11,15 +11,27 @@ public class OnDrawingClickListener implements View.OnClickListener{
     private Drawing drawing;
     private Mode mode;
     private Context context;
+    private SpeechSynthesis speech;
+
 
     public OnDrawingClickListener(Context context, Drawing drawing, Mode mode){
         this.drawing = drawing;
         this.context = context;
         this.mode = mode;
+
+        // thread pour synthèse vocale
+        speech = new SpeechSynthesis() {
+            protected void onPostExecute(Boolean result) {
+            }
+        };
+        speech.context = context;
+        speech.execute();
     }
 
     @Override
     public void onClick(View v) {
+        // dit le nom du dessin
+        speech.speek(drawing.getName());
 
         Intent intent = new Intent(context, FillColorActivity.class);
         intent.putExtra("imageId", drawing.getDrawableId());
