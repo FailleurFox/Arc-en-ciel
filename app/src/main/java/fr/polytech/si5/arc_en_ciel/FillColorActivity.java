@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MotionEvent;
@@ -17,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.UUID;
 
 public class FillColorActivity extends Activity {
@@ -30,6 +34,8 @@ public class FillColorActivity extends Activity {
     private int nbCircles;
 
     private SpeechSynthesis speech;
+    private MediaPlayer mpWrongSound;
+    private MediaPlayer mpApplauseSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,11 @@ public class FillColorActivity extends Activity {
         };
         speech.context = getApplicationContext();
         speech.execute();
+
+        // Init the mediaPlayer pour jouer un mp3 (Son quand on se trompe)
+        mpWrongSound = MediaPlayer.create(this, R.raw.wrongsound);
+        mpApplauseSound = MediaPlayer.create(this, R.raw.applausesound);
+       // mp.start();
 
         imageView = (FillColorView) findViewById(R.id.drawing);
         FillColorView colorsView = (FillColorView) findViewById(R.id.colors);
@@ -85,12 +96,19 @@ public class FillColorActivity extends Activity {
                     if (mode.equals(Mode.HARD) && bmpColors.getPixel((int) touchX, (int) touchY) != color
                             || bmp.getPixel((int) touchX, (int) touchY) == color
                             || (bmp.getPixel((int) touchX, (int) touchY) == 0 && ((ColorDrawable)imageView.getBackground()).getColor() == color)) {
+
+                        // si on clique sur une mauvaise pastille (mais si on clique sur du blanc ou du noir, ne fait rien)v
+                        if(bmpColors.getPixel((int) touchX, (int) touchY)!=0)
+                            // son quand on se trompe
+                            mpWrongSound.start();
+
                         return true;
                     }
                     isColoring = true;
 
                     // mode hard : dit la couleur si c'est la bonne
-                    speech.speek(speech.colorToSpeech(currPaint.getTag().toString()));
+                    if(mode.equals(Mode.HARD))
+                        speech.speek(speech.colorToSpeech(currPaint.getTag().toString()));
 
                     Point p = new Point((int) touchX, (int) touchY);
 
@@ -175,7 +193,8 @@ public class FillColorActivity extends Activity {
 
     private void winHardMode() {
 
-        speech.speek("Bravo !");
+        mpApplauseSound.start();
+        //speech.speek("Bravo !");
         new AlertDialog.Builder(this).setMessage("Bravo !").show();
 
     }
